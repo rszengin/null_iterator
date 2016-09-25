@@ -12,3 +12,35 @@ When a null iterator is assigned to a normal iterator, the assignment make the n
 `main.cpp` includes some sample usage.
 
 Tested with MinGW GCC 5.1 (TDM-GCC Distribution)
+
+### Some Examples
+
+#### Sending data to nowhere
+```c++
+std::vector<int> dizi { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+std::copy(dizi.begin(), dizi.end(), make_null_iterator(dizi.begin()));
+```
+
+#### Using as a null return value
+```c++
+template<typename InputIt, typename T>
+InputIt my_found( InputIt first, InputIt last, const T& value ) {
+	using namespace nltr;
+	InputIt result = std::find(first, last, value);
+	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+}
+
+int main() {
+
+	using namespace nltr;
+
+	std::vector<int> dizi { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	for (int inx = 7; inx < 30; inx += 7) {
+		std::cout << (inx % 15) << " is";
+		if (my_found(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+			std::cout << " not";
+		std::cout << " found in dizi" << std::endl;
+	}
+}
+  ```
