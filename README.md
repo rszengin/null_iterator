@@ -2,7 +2,9 @@
 
 For pointers there is a **nullptr** definition. If we treat pointers analogous to geometric vectors, iterators may be treated as tensors. So, why don't we have a higher level **nulliter** ? This is the main idea behind this work.
 
-null_iterator_adaptor is an iterator adaptor as its name declares. It converts any STL compatible iterator or simply pointer to a null iterator. So, what a null iterator does? Nothing. Or anything. When it is used with STL algorithms as an output iterator it works as a **null device**. When used as an input iterator, it only gives out a default constructed **value_type** object. This behaviour is a bit like a **zero device**. It can be used as a random access iterator, it will access to infinity and beyond.
+null_iterator_adaptor is an iterator adaptor as its name declares. It converts any STL compatible iterator or simply pointer to a null iterator. So, what a null iterator does? Nothing. Or anything. It doesn't need a list to be used. It only uses type information of the underlying iterator. It has nothing to do with real data. It can be used to fool STL algorithms. It can be used as a null return value or a comparison to null constant for the list traversing algorithms.
+
+When it is used with STL algorithms as an output iterator it works as a **null device**. When used as an input iterator, it only gives out a default constructed **value_type** object. This behaviour is a bit like a **zero device**. It can be used as a random access iterator, it will access to infinity and beyond.
 
 When a null iterator is assigned to a normal iterator, the assignment make the normal iterator default constructed. When null iterator is compared with a normal iterator, the comparison will be the comparison of the normal iterator with its default constructed state.
 
