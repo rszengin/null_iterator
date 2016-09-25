@@ -8,3 +8,5 @@ When a null iterator is assigned to a normal iterator, the assignment make the n
 
 `nulliter.hpp` includes the null_iterator_adapter code.
 `main.cpp` includes some sample usage.
+
+Tested with MinGW GCC 5.1 (TDM-GCC Distribution)
