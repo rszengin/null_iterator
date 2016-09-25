@@ -1,1 +1,2 @@
-# null_iterator
+# Null Iterator Adaptor
+
