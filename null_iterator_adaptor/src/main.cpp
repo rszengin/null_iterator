@@ -32,12 +32,29 @@ InputIt my_find( InputIt first, InputIt last, const T& value ) {
 	return return_value;
 }
 
+template<typename InputIt, typename T>
+InputIt my_found( InputIt first, InputIt last, const T& value ) {
+	using namespace nltr;
+	InputIt result = std::find(first, last, value);
+	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+}
+
 int main() {
 
 	using namespace nltr;
 
-	int dizgi[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	std::vector<int> dizi { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	for (int inx = 7; inx < 30; inx += 7) {
+		std::cout << (inx % 15) << " is";
+		if (my_found(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+			std::cout << " not";
+		std::cout << " found in dizi" << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	int dizgi[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 	for (int inx = 0; inx < 20; inx += 3) {
 		if (my_find(dizi.begin(), dizi.end(), inx) == nulliter) {
