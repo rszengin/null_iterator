@@ -236,7 +236,7 @@ null_iterator<Iter> make_null_iterator(const Iter& it) {
 using nulliter_t = null_iterator<nullptr_t*>;
 
 // The Universal Null Iterator
-nulliter_t nulliter {};
+//nulliter_t nulliter {};
 
 template<typename Iter>
 bool operator==(const nulliter_t& nulliter, const Iter& it) {

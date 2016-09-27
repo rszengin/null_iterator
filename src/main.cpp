@@ -12,31 +12,19 @@
 #include <string>
 #include <functional>
 #include <iterator>
+
 #include "nulliter.hpp"
 
 
+// The Universal Null Iterator
+nltr::nulliter_t nulliter {};
+
 template<typename InputIt, typename T>
 InputIt my_find( InputIt first, InputIt last, const T& value ) {
-
-	using namespace nltr;
-
-	InputIt result = std::find(first, last, value);
-	InputIt return_value;
-
-//	return_value = result != last ? result : InputIt {} ;
-//	return_value = result != last ? result : null_iterator<InputIt> {};
-//	return_value = result != last ? result : static_cast<InputIt>(null_iterator<InputIt> {});
-//	return_value = result != last ? result : make_null_iterator(result);
-	return_value = result != last ? result : nulliter;
-
-	return return_value;
-}
-
-template<typename InputIt, typename T>
-InputIt my_found( InputIt first, InputIt last, const T& value ) {
 	using namespace nltr;
 	InputIt result = std::find(first, last, value);
-	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+//	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+	return (result != last) ? result : nulliter;
 }
 
 int main() {
@@ -47,50 +35,44 @@ int main() {
 
 	for (int inx = 7; inx < 30; inx += 7) {
 		std::cout << (inx % 15) << " is";
-		if (my_found(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+//		if (my_find(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+		if (my_find(dizi.begin(), dizi.end(), (inx % 15)) == nulliter)
 			std::cout << " not";
 		std::cout << " found in dizi" << std::endl;
 	}
 
 	std::cout << std::endl;
 
-	int dizgi[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	const size_t size = 10;
+	int dizgi[size] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-	for (int inx = 0; inx < 20; inx += 3) {
-		if (my_find(dizi.begin(), dizi.end(), inx) == nulliter) {
-			std::cout << inx << " is not found in dizi" << std::endl;
-		}
-		else {
-			std::cout << inx << " is found in dizi" << std::endl;
-		}
-
-		if (nulliter == my_find(&dizgi[0], &dizgi[(sizeof(dizgi) / sizeof(dizgi[0]))], inx)) {
-			std::cout << inx << " is not found in dizgi" << std::endl;
-		}
-		else {
-			std::cout << inx << " is found in dizgi" << std::endl;
-		}
+	for (int inx = 7; inx < 30; inx += 7) {
+		std::cout << (inx % 15) << " is";
+//		if (my_find(&dizgi[0], &dizgi[size], (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+		if (my_find(&dizgi[0], &dizgi[size], (inx % 15)) == nulliter)
+			std::cout << " not";
+		std::cout << " found in dizgi" << std::endl;
 	}
+
 
 
 	std::copy(dizi.begin(), dizi.end(), make_null_iterator(dizi.begin()));
 	std::cout << std::endl;
 	std::fill_n(make_null_iterator(dizi.begin()), 10, 100);
 	std::cout << std::endl;
-	// Because source and target is same doesnt run any operations
 	std::copy_n(make_null_iterator(dizi.begin()), 10, make_null_iterator(dizi.begin()));
-	std::copy_n(dizi.begin(), 10, make_null_iterator(dizi.begin()));
 	std::cout << std::endl;
+	std::copy_n(dizi.begin(), 10, make_null_iterator(dizi.begin()));
 
-	std::copy(&dizgi[0], &dizgi[(sizeof(dizgi) / sizeof(dizgi[0]))], make_null_iterator(dizi.begin()));
+	std::cout << "\n----------" << std::endl;
+
+	std::copy(&dizgi[0], &dizgi[size], make_null_iterator(dizi.begin()));
 	std::cout << std::endl;
 	std::fill_n(make_null_iterator(&dizgi[0]), 10, 100);
 	std::cout << std::endl;
-	// Because source and target is same doesnt run any operations
 	std::copy_n(make_null_iterator(&dizgi[0]), 10, make_null_iterator(&dizgi[0]));
-	std::copy_n(&dizgi[0], 10, make_null_iterator(&dizgi[0]));
 	std::cout << std::endl;
-
+	std::copy_n(&dizgi[0], 10, make_null_iterator(&dizgi[0]));
 
 
 	return 0;

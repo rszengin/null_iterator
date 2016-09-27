@@ -1,8 +1,8 @@
-12:11:55 **** Incremental Build of configuration Debug for project null_iterator ****
+15:43:46 **** Rebuild of configuration Debug for project null_iterator ****
 Info: Internal Builder is used for build
 g++ -std=c++14 -O0 -g3 -Wall -c -fmessage-length=0 -o src\main.o ..\src\main.cpp 
 g++ -o null_iterator.exe src\main.o 
 Info: Parallel threads used: 1
 
-12:11:58 Build Finished (took 3s.299ms)
+15:43:49 Build Finished (took 3s.213ms)
 
