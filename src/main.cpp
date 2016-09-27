@@ -9,15 +9,13 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <string>
-#include <functional>
 #include <iterator>
 
 #include "nulliter.hpp"
 
 
 // The Universal Null Iterator
-nltr::nulliter_t nulliter {};
+nltr::null_iterator<nullptr_t*> nulliter {nullptr};
 
 template<typename InputIt, typename T>
 InputIt my_find( InputIt first, InputIt last, const T& value ) {

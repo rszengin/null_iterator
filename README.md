@@ -24,10 +24,11 @@ std::copy(dizi.begin(), dizi.end(), make_null_iterator(dizi.begin()));
 #### Using as a null return value
 ```c++
 template<typename InputIt, typename T>
-InputIt my_found( InputIt first, InputIt last, const T& value ) {
+InputIt my_find( InputIt first, InputIt last, const T& value ) {
 	using namespace nltr;
 	InputIt result = std::find(first, last, value);
-	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+//	return (result != last) ? result : make_null_iterator((nullptr_t*)nullptr);
+	return (result != last) ? result : nulliter;
 }
 
 int main() {
@@ -38,7 +39,8 @@ int main() {
 
 	for (int inx = 7; inx < 30; inx += 7) {
 		std::cout << (inx % 15) << " is";
-		if (my_found(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+//		if (my_find(dizi.begin(), dizi.end(), (inx % 15)) == make_null_iterator((nullptr_t*)nullptr))
+		if (my_find(dizi.begin(), dizi.end(), (inx % 15)) == nulliter)
 			std::cout << " not";
 		std::cout << " found in dizi" << std::endl;
 	}
